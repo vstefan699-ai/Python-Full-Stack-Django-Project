@@ -1,0 +1,121 @@
+{% extends 'core/base.html' %}
+
+{% block title %}FitTrack Pro | Train Smarter{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<div style="min-height: 90vh; display: flex; align-items: center; background: linear-gradient(135deg, #0f0f0f 60%, #1a0a0a 100%);">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <span class="badge bg-danger mb-3 px-3 py-2">
+                    <i class="fas fa-fire me-1"></i> Professional Training Platform
+                </span>
+                <h1 class="fw-bold mb-3" style="font-size: 3.5rem; line-height: 1.1;">
+                    Train Smarter.<br>
+                    <span style="color: #e63946;">Track Everything.</span>
+                </h1>
+                <p class="mb-4" style="font-size: 1.1rem; color: #aaaaaa; max-width: 480px;">
+                    FitTrack Pro gives you coach-designed workout programs, 
+                    exercise tracking and progress monitoring — all in one place.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="{% url 'register' %}" class="btn btn-danger btn-lg px-4">
+                        <i class="fas fa-user-plus me-2"></i> Get Started Free
+                    </a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-light btn-lg px-4">
+                        <i class="fas fa-sign-in-alt me-2"></i> Sign In
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 text-center mt-5 mt-md-0">
+                <i class="fas fa-dumbbell" style="font-size: 15rem; color: #e63946; opacity: 0.15;"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div style="background-color: #111111; padding: 80px 0;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Everything you need to reach your goals</h2>
+            <p class="text-muted">Built for serious athletes and beginners alike</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card p-4 text-center h-100">
+                    <i class="fas fa-dumbbell fa-2x mb-3" style="color: #e63946;"></i>
+                    <h5 class="fw-bold">Coach-Designed Programs</h5>
+                    <p class="text-muted">Professional workout plans built by certified trainers. From beginner to advanced.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-4 text-center h-100">
+                    <i class="fas fa-chart-line fa-2x mb-3" style="color: #e63946;"></i>
+                    <h5 class="fw-bold">Track Your Progress</h5>
+                    <p class="text-muted">Log every session and watch your strength grow over time. Data driven results.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-4 text-center h-100">
+                    <i class="fas fa-users fa-2x mb-3" style="color: #e63946;"></i>
+                    <h5 class="fw-bold">Personal Coaching</h5>
+                    <p class="text-muted">Get a plan assigned by your coach personally tailored to your fitness level.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Programs Section -->
+<div style="background-color: #0f0f0f; padding: 80px 0;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Our Programs</h2>
+            <p class="text-muted">Something for every level</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card p-4 h-100">
+                    <span class="badge bg-danger mb-2" style="width: fit-content;">Beginner</span>
+                    <h5 class="fw-bold">Full Body Strength</h5>
+                    <p class="text-muted">3 days per week. Compound movements. Perfect for building your foundation.</p>
+                    <p style="color: #e63946;" class="small"><i class="fas fa-list me-1"></i> 6 exercises</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-4 h-100">
+                    <span class="badge bg-danger mb-2" style="width: fit-content;">Intermediate</span>
+                    <h5 class="fw-bold">Push Pull Legs</h5>
+                    <p class="text-muted">6 days per week. Maximum volume and frequency for serious gains.</p>
+                    <p style="color: #e63946;" class="small"><i class="fas fa-list me-1"></i> 10 exercises</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-4 h-100">
+                    <span class="badge bg-danger mb-2" style="width: fit-content;">All Levels</span>
+                    <h5 class="fw-bold">Home Warrior</h5>
+                    <p class="text-muted">Zero equipment needed. Train anywhere, anytime. No excuses.</p>
+                    <p style="color: #e63946;" class="small"><i class="fas fa-list me-1"></i> 10 exercises</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div style="background: linear-gradient(135deg, #e63946, #c1121f); padding: 80px 0;">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Ready to start your journey?</h2>
+        <p class="mb-4" style="font-size: 1.1rem; opacity: 0.9;">
+            Join FitTrack Pro today and get access to professional training programs instantly.
+        </p>
+        <a href="{% url 'register' %}" class="btn btn-dark btn-lg px-5">
+            <i class="fas fa-user-plus me-2"></i> Create Free Account
+        </a>
+    </div>
+</div>
+
+{% endblock %}

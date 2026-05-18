@@ -1,0 +1,71 @@
+{% extends 'core/base.html' %}
+
+{% block title %}My Progress | FitTrack Pro{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar p-3">
+            <p class="text-muted small text-uppercase fw-bold px-2 mt-2">Menu</p>
+            <a href="{% url 'user_dashboard' %}" class="{% if request.path == '/user-dashboard/' %}active{% endif %}">
+                <i class="fas fa-home me-2"></i> Dashboard
+            </a>
+            <a href="{% url 'workout_log' %}" class="{% if request.path == '/log-workout/' %}active{% endif %}">
+                <i class="fas fa-plus me-2"></i> Log Workout
+            </a>
+            <a href="{% url 'my_progress' %}" class="{% if request.path == '/my-progress/' %}active{% endif %}">
+                <i class="fas fa-chart-line me-2"></i> My Progress
+            </a>
+        </div>
+
+        <!-- Main content -->
+        <div class="col-md-10 p-4">
+            <h3 class="fw-bold mb-1">My Progress</h3>
+            <p class="text-muted mb-4">Your workout history</p>
+
+            <div class="card p-3">
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>Exercise</th>
+                            <th>Muscle Group</th>
+                            <th>Weight Used</th>
+                            <th>Sets x Reps</th>
+                            <th>Notes</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr>
+                            <td class="fw-bold" style="color: #e63946;">
+                                {{ log.exercise.name }}
+                            </td>
+                            <td>
+                                <span class="badge bg-secondary">
+                                    {{ log.exercise.get_muscle_group_display }}
+                                </span>
+                            </td>
+                            <td>{{ log.weight_used }} kg</td>
+                            <td>{{ log.exercise.sets }}x{{ log.exercise.reps }}</td>
+                            <td class="text-muted small">{{ log.notes|default:"—" }}</td>
+                            <td class="text-muted">{{ log.completed_on|date:"d M Y" }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                <i class="fas fa-dumbbell fa-2x mb-2 d-block" style="color: #e63946;"></i>
+                                No workouts logged yet. Start training!
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

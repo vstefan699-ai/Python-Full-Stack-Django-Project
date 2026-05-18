@@ -1,0 +1,81 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Log Workout | FitTrack Pro{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar p-3">
+            <p class="text-muted small text-uppercase fw-bold px-2 mt-2">Menu</p>
+            <a href="{% url 'user_dashboard' %}" class="{% if request.path == '/user-dashboard/' %}active{% endif %}">
+                <i class="fas fa-home me-2"></i> Dashboard
+            </a>
+            <a href="{% url 'workout_log' %}" class="{% if request.path == '/log-workout/' %}active{% endif %}">
+                <i class="fas fa-plus me-2"></i> Log Workout
+            </a>
+            <a href="{% url 'my_progress' %}" class="{% if request.path == '/my-progress/' %}active{% endif %}">
+                <i class="fas fa-chart-line me-2"></i> My Progress
+            </a>
+        </div>
+
+        <!-- Main content -->
+        <div class="col-md-10 p-4">
+            <h3 class="fw-bold mb-1">Log Workout</h3>
+            <p class="text-muted mb-4">Record your session</p>
+
+            <div class="row justify-content-start">
+                <div class="col-md-6">
+                    <div class="card p-4">
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <!-- Exercise selector -->
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Exercise</label>
+                                <select name="exercise" class="form-select bg-dark text-white border-secondary">
+                                    {% for ex in exercises %}
+                                    <option value="{{ ex.id }}"
+                                        {% if exercise and exercise.id == ex.id %}selected{% endif %}>
+                                        {{ ex.name }} ({{ ex.sets }}x{{ ex.reps }})
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <!-- Weight -->
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Weight Used (kg)</label>
+                                <input 
+                                    type="number" 
+                                    name="weight" 
+                                    class="form-control bg-dark text-white border-secondary"
+                                    placeholder="e.g. 60"
+                                    step="0.5"
+                                    required
+                                >
+                            </div>
+
+                            <!-- Notes -->
+                            <div class="mb-3">
+                                <label class="form-label text-muted">Notes (optional)</label>
+                                <textarea 
+                                    name="notes" 
+                                    class="form-control bg-dark text-white border-secondary"
+                                    rows="3"
+                                    placeholder="How did it feel? Any observations..."
+                                ></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-danger w-100">
+                                <i class="fas fa-check"></i> Save Log
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

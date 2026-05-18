@@ -1,0 +1,97 @@
+{% extends 'core/base.html' %}
+
+{% block title %}My Dashboard | FitTrack Pro{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar p-3">
+            <p class="text-muted small text-uppercase fw-bold px-2 mt-2">Menu</p>
+            <a href="{% url 'user_dashboard' %}" class="{% if request.path == '/user-dashboard/' %}active{% endif %}">
+               <i class="fas fa-home me-2"></i> Dashboard
+            </a>
+            <a href="{% url 'workout_log' %}" class="{% if request.path == '/log-workout/' %}active{% endif %}">
+                <i class="fas fa-plus me-2"></i> Log Workout
+            </a>
+            <a href="{% url 'my_progress' %}" class="{% if request.path == '/my-progress/' %}active{% endif %}">
+                <i class="fas fa-chart-line me-2"></i> My Progress
+            </a>
+        </div>
+
+        <!-- Main content -->
+        <div class="col-md-10 p-4">
+            <h3 class="fw-bold mb-1">My Dashboard</h3>
+            <p class="text-muted mb-4">Welcome back, {{ user.username }} 💪</p>
+
+            {% if user.profile.assigned_plan %}
+            <!-- Assigned plan section -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="card stat-card p-3">
+                        <p class="text-muted small mb-1">My Program</p>
+                        <h6 class="fw-bold">{{ user.profile.assigned_plan.name }}</h6>
+                        <i class="fas fa-dumbbell" style="color: #e63946;"></i>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card stat-card p-3">
+                        <p class="text-muted small mb-1">Total Exercises</p>
+                        <h3 class="fw-bold">{{ user.profile.assigned_plan.exercises.count }}</h3>
+                        <i class="fas fa-list" style="color: #e63946;"></i>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card stat-card p-3">
+                        <p class="text-muted small mb-1">My Logs</p>
+                        <h3 class="fw-bold">{{ total_logs }}</h3>
+                        <i class="fas fa-chart-bar" style="color: #e63946;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise list -->
+            <h5 class="fw-bold mb-3">
+                <i class="fas fa-dumbbell me-2" style="color: #e63946;"></i>
+                {{ user.profile.assigned_plan.name }}
+            </h5>
+            <div class="row g-3">
+                {% for exercise in user.profile.assigned_plan.exercises.all %}
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h6 class="fw-bold" style="color: #e63946;">{{ exercise.name }}</h6>
+                        <span class="badge bg-secondary mb-2">{{ exercise.get_muscle_group_display }}</span>
+                        <div class="d-flex gap-3 mt-1">
+                          <div class="text-center">
+                              <p class="small mb-0" style="color: #aaaaaa;">Sets</p>
+                              <h5 class="fw-bold mb-0" style="color: #ffffff;">{{ exercise.sets }}</h5>
+                          </div>
+                          <div class="text-center">
+                              <p class="small mb-0" style="color: #aaaaaa;">Reps</p>
+                              <h5 class="fw-bold mb-0" style="color: #ffffff;">{{ exercise.reps }}</h5>
+                          </div>
+                        </div>
+                       <p class="small mt-2" style="color: #aaaaaa;">{{ exercise.description }}</p>
+                        <a href="{% url 'workout_log' %}?exercise={{ exercise.id }}" 
+                           class="btn btn-danger btn-sm mt-2">
+                            <i class="fas fa-plus"></i> Log This
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% else %}
+            <!-- No plan assigned yet -->
+            <div class="card p-5 text-center">
+                <i class="fas fa-dumbbell fa-3x mb-3" style="color: #e63946;"></i>
+                <h5 class="fw-bold">No Program Assigned Yet</h5>
+                <p class="text-muted">Your coach hasn't assigned a workout plan to you yet. Check back soon!</p>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

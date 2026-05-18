@@ -1,0 +1,73 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Manage Plans | FitTrack Pro{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar p-3">
+            <p class="text-muted small text-uppercase fw-bold px-2 mt-2">Menu</p>
+            <a href="{% url 'admin_dashboard' %}">
+                <i class="fas fa-home me-2"></i> Dashboard
+            </a>
+            <a href="{% url 'manage_plans' %}">
+                <i class="fas fa-dumbbell me-2"></i> Workout Plans
+            </a>
+            <a href="{% url 'manage_users' %}">
+                <i class="fas fa-users me-2"></i> Members
+            </a>
+        </div>
+
+        <!-- Main content -->
+        <div class="col-md-10 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h3 class="fw-bold mb-1">Workout Plans</h3>
+                    <p class="text-muted">Manage all training programs</p>
+                </div>
+            </div>
+
+            <!-- Plans list -->
+            <div class="row g-3">
+                {% for plan in plans %}
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h6 class="fw-bold" style="color: #e63946;">
+                            <i class="fas fa-dumbbell me-1"></i> {{ plan.name }}
+                        </h6>
+                        <p class="text-muted small">{{ plan.description|truncatewords:20 }}</p>
+                        <hr style="border-color: #2a2a2a;">
+
+                        <!-- Exercises in this plan -->
+                        <p class="text-muted small text-uppercase fw-bold">Exercises</p>
+                        {% for exercise in plan.exercises.all %}
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="small">{{ exercise.name }}</span>
+                            <span class="small text-muted">
+                                {{ exercise.sets }}x{{ exercise.reps }}
+                            </span>
+                        </div>
+                        {% empty %}
+                        <p class="text-muted small">No exercises yet.</p>
+                        {% endfor %}
+
+                        <div class="mt-3">
+                            <span class="badge bg-danger">
+                                {{ plan.exercises.count }} exercises
+                            </span>
+                            <span class="badge bg-secondary ms-1">
+                                {{ plan.muscle_groups }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-muted">No workout plans found.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
